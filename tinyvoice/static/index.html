@@ -1,0 +1,71 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>TinyVoice Termux Assistant</title>
+  <link rel="stylesheet" href="/static/styles.css" />
+</head>
+<body>
+  <main class="shell">
+    <section class="panel">
+      <header>
+        <p class="eyebrow">Local-first Android / Termux prototype</p>
+        <h1>TinyVoice</h1>
+        <p class="lede">Record speech, transcribe it with local Whisper, preview the matched terminal action, then tap to run only allowlisted commands.</p>
+      </header>
+
+      <section class="card" aria-labelledby="setup-title">
+        <div class="card-header">
+          <h2 id="setup-title">1. Setup</h2>
+          <span id="model-pill" class="pill">Checking…</span>
+        </div>
+        <p id="model-message">Loading model status…</p>
+        <button id="download-model" type="button">Download speech model</button>
+        <small id="model-path"></small>
+      </section>
+
+      <section class="card" aria-labelledby="record-title">
+        <div class="card-header">
+          <h2 id="record-title">2. Voice loop</h2>
+          <span id="recording-pill" class="pill muted">Idle</span>
+        </div>
+        <div class="button-row">
+          <button id="record" type="button">Record</button>
+          <button id="stop" type="button" disabled>Stop + transcribe</button>
+        </div>
+        <p class="hint">If browser recording is unavailable, use the file picker with a WAV/WebM recording.</p>
+        <input id="audio-file" type="file" accept="audio/*" />
+        <button id="upload" type="button">Upload + transcribe</button>
+      </section>
+
+      <section class="card" aria-labelledby="review-title">
+        <h2 id="review-title">3. Review before execution</h2>
+        <label for="transcript">Transcript</label>
+        <textarea id="transcript" rows="3" placeholder="Try: list files"></textarea>
+        <div class="button-row">
+          <button id="preview" type="button">Preview action</button>
+          <button id="run" type="button" class="danger">Confirm + run</button>
+        </div>
+        <div id="preview-box" class="output">No action previewed yet.</div>
+      </section>
+    </section>
+
+    <aside class="sidecar">
+      <section class="card">
+        <h2>Command output</h2>
+        <pre id="command-output">No command has run.</pre>
+      </section>
+      <section class="card">
+        <h2>Allowed phrases</h2>
+        <ul id="allowed-list"></ul>
+      </section>
+      <section class="card">
+        <h2>Audit trail</h2>
+        <pre id="audit-log">No audit entries yet.</pre>
+      </section>
+    </aside>
+  </main>
+  <script src="/static/app.js"></script>
+</body>
+</html>
